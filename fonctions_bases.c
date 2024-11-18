@@ -78,7 +78,9 @@ bool Is_possible(int plateau[Lenght_tab][Lenght_tab], int i, int j, int Indice_p
                 in_boucle=true;
                 if(!(pos_ligne >= 0 && pos_ligne <= 7 && pos_column >= 0 && pos_column <= 7)){
                     end = true;
-                } else {
+                } 
+                // Rajouter une condition de bordure
+                else {
                     pos_ligne += Vect[i_vect][0];
                     pos_column += Vect[i_vect][1];
                 }
