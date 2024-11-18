@@ -18,38 +18,49 @@ int main(){
     char tab_player[2] = {'N', 'B'};
     int Indice_tab_player = 0;
 
+    int end_game = 0;
+
     bool boucle = true;
     while(boucle){
         
         int ligne;
         int column;
 
-        printf("\n");
-        printf("C'est au tour des pions %c\n", tab_player[Indice_tab_player]);
-        printf("Rentrer ligne : ");
-        scanf("%d", &ligne); // Rentrer ligne : 
-        printf("Rentrer colone : ");
-        scanf("%d", &column); // Rentrer colone : 
-
         int Possible_vect[8][2];
-        bool played = Is_possible(plateau, ligne, column, Indice_tab_player, Possible_vect);
+        bool played = false;
 
-        printf("\n");
-        for (int i =0;i<8; i++){
-            for (int j =0; j<2;j++){
-                printf("%d ", Possible_vect[i][j]);
-            }
-            printf(" , ");
-        }
-        printf("\n");
-
-        Print_tab(plateau);
-        Indice_tab_player = (Indice_tab_player + 1)%2;
-
-        if (!played || Tab_is_empty(plateau)){
-            printf("Le joueur %c a gagné ! \n",tab_player[Indice_tab_player]);
+        if (end_game == 2){
+            int WW = Who_win(plateau);
+            if (WW != -1) printf("Le joueur %c a gagné ! \n",tab_player[WW]);
+            else printf("Egalié \n");
             boucle = false;
         }
+        else if (Tab_is_empty(plateau, Indice_tab_player, Possible_vect)){
+            played = true;
+            end_game += 1;
+        }
+        else {
+            
+            printf("\n");
+            printf("C'est au tour des pions %c\n", tab_player[Indice_tab_player]);
+            printf("Rentrer ligne : ");
+            scanf("%d", &ligne); // Rentrer ligne : 
+            printf("Rentrer colone : ");
+            scanf("%d", &column); // Rentrer colone : 
+            printf("\n");
+
+
+            played = Is_possible(plateau, ligne, column, Indice_tab_player, Possible_vect);
+
+            if (played) {
+                swap(plateau, ligne, column, Indice_tab_player, Possible_vect);
+            }
+            else printf("Coup invalide \n");
+
+            Print_tab(plateau);
+            end_game = 0;
+        }
+        if (played) Indice_tab_player = (Indice_tab_player + 1)%2;
 
     }
     return 0;
