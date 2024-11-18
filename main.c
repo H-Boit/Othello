@@ -43,9 +43,13 @@ int main(){
         }
         printf("\n");
 
-        Indice_tab_player = played == 1 ? (Indice_tab_player + 1)%2 : Indice_tab_player;
-
         Print_tab(plateau);
+        Indice_tab_player = (Indice_tab_player + 1)%2;
+
+        if (!played || Tab_is_empty(plateau)){
+            printf("Le joueur %c a gagné ! \n",tab_player[Indice_tab_player]);
+            boucle = false;
+        }
 
     }
     return 0;
