@@ -59,21 +59,26 @@ int main(int argc,char *argv[])
 			g->move=65; // si scanf correct cette valeur est modifiée, sinon cela terminera la partie. 
 			// recuperation du coup sur stdin 
 			printf("Enter your move:\n");
+
+			// Code pour jouer sans IA
+			/*
 			int ligne, colonne;
 			printf("Ligne : ");
 			scanf("%d",&ligne);
 			printf("Colonne : ");
 			scanf("%d",&colonne);
 			(g->move) = ligne*8 + colonne; 
-			
+			*/
+			(g->move) = IA(plateau, !(g->currentPlayer));
 
 			printf("playing move %d (x=%d,y=%d)\n",g->move,g->move%8,g->move/8);
 			
 			int Possible_vect[8][2]= {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
-			
-			Is_possible(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
-			swap(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
+			int played = Is_possible(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
 
+			//if (played == 0) (g->move = 64);
+
+			swap(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
 
 			doMoveOthello(g);	// envoie du coup à l'adversaire 
 			Print_tab(plateau);
