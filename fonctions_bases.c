@@ -115,7 +115,7 @@ int Is_possible(int plateau[Lenght_tab][Lenght_tab], int i, int j, int Indice_pl
         Possible_vect : un tableau contenant les vecteurs possibles de déplacement,
     
     RETURN :
-        p_ret : nombre de pions retournés
+        p_ret : nombre de pions retournés en tout
 */
 int swap(int plateau[Lenght_tab][Lenght_tab], int i, int j, int Indice_player, int Possible_vect[8][2]){
     int p_ret = 0, cmpt = 0, temp_p_ret = 0;
