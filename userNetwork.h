@@ -19,13 +19,13 @@
  * \brief Etats possibles de la connexion au serveur. 
 */
 typedef enum {
-	CONNECT=1, 	/*!< Connexion en cours. */
-	PLAYING, 	/*!< Partie en cours */
-	WIN,		/*!< Partie gagnée */
-	LOOSE,		/*!< Partie perdue */
-	DRAW, 		/*!< Partie egale */
-	ERROR 		/*!< Erreur durant la partie */
-} states; 
+	CONNECT=1, 	/*!< Connexion en cours. Game status == 1*/
+	PLAYING, 	/*!< Partie en cours. Game status == 2 */
+	WIN,		/*!< Partie gagnée. Game status == 3 */
+	LOOSE,		/*!< Partie perdue. Game status == 4 */
+	DRAW, 		/*!< Partie egale. Game status == 5 */
+	ERROR 		/*!< Erreur durant la partie. Game status == 6 */
+} states;
 
 /**
  * \struct game 
