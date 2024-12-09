@@ -13,7 +13,7 @@ int main(int argc,char *argv[])
 	if ((g=allocateGameOthello()) == NULL ) { return(EXIT_FAILURE); }
 
 	if (argc > 3 ) { 
-		g->userId=atoi(argv[3]); 
+		g->userId=atoi(argv[3]);
 		g->address=argv[2]; 
 	}
 	else { fprintf(stderr,"usage : %s <userPasswd> <ip ad> <userId>\n",argv[0]); exit(-1); }
@@ -69,7 +69,7 @@ int main(int argc,char *argv[])
 			scanf("%d",&colonne);
 			(g->move) = ligne*8 + colonne; 
 			*/
-			(g->move) = IA(plateau, !(g->currentPlayer));
+			(g->move) = appel_IA_max_pts_rec(plateau, !(g->currentPlayer), !(g->currentPlayer));
 
 			printf("playing move %d (x=%d,y=%d)\n",g->move,g->move%8,g->move/8);
 			
@@ -86,6 +86,7 @@ int main(int argc,char *argv[])
 		g->currentPlayer=!g->currentPlayer; 
 	} 
 	// fin de partie 
+	printf("I am player %s\n",(g->myColor==BLACK)?"Black":"White"); 
 	printf("Final game status = %d\n",g->state); 
 	freeGameOthello(g);
 	return 0; 
