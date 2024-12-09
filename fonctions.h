@@ -18,5 +18,8 @@ int Who_win(int plateau[Lenght_tab][Lenght_tab]);
 // Fonctions de IA.c
 
 int IA(int plateau[Lenght_tab][Lenght_tab], int Indice_player);
+int IA_max_pts(int plateau[Lenght_tab][Lenght_tab], int Indice_player);
+int appel_IA_max_pts_rec(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor);
+int IA_max_pts_rec(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor, int profondeur);
 
 // Fonctions de test.c
