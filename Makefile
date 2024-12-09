@@ -4,8 +4,9 @@ h = fonctions.h
 main : main.o fonctions_bases.o IA.o
 	gcc $^ -o $@ $(ti)
 
-serv: userSimple.c fonctions_bases.c
-	$(CC) $(CFLAGS) -L. -o serv userSimple.c fonctions_bases.c -lothello
+serv: userSimple.c fonctions_bases.c IA.c
+	export LD_LIBRARY_PATH=.
+	$(CC) $(CFLAGS) -L. -o serv $^ -lothello
 
 test : test.o fonctions_bases.o
 	gcc $^ -o $@ $(ti)
