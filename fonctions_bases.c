@@ -125,7 +125,7 @@ int swap(int plateau[Lenght_tab][Lenght_tab], int i, int j, int Indice_player, i
         int dj = Possible_vect[cmpt][1];
         int pos_ligne= i+ di;
         int pos_column = j + dj;
-        while(plateau[pos_ligne][pos_column]!= Indice_player){
+        while(plateau[pos_ligne][pos_column]!= Indice_player && (pos_ligne >= 0) && (pos_ligne <= 7) && (pos_column >= 0) && (pos_column <= 7)){
             plateau[pos_ligne][pos_column] =  Indice_player ; 
             pos_ligne += di;
             pos_column += dj;
