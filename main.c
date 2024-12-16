@@ -41,7 +41,7 @@ int main(){
         if (end_game == 2){
             int WW = Who_win(plateau);
             if (WW != -1) printf("Le joueur %c a gagné ! \n",tab_player[WW]);
-            else printf("Egalié \n");
+            else printf("Egalité \n");
             boucle = false;
         }
         else if (tmp ==64 ){
