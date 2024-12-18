@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "fonctions.h"
 
@@ -18,26 +19,28 @@ int main(){
     char tab_player[2] = {'B', 'W'};
     int Indice_tab_player = 0;
 
-    int end_game = 0;
+    int end_game = 0, nb_move = 0;
 
     bool boucle = true;
     while(boucle){
-        
+        time_t begin = time( NULL );
         printf("C'est au tour de %c\n", tab_player[Indice_tab_player]);
 
         int ligne;
         int column;
 
-        int Possible_vect[8][2];
+        int Possible_vect[8][2] = {{0,0}};
         bool played = false;
 
-        int tmp = appel_IA_max_pts_rec(plateau, Indice_tab_player, Indice_tab_player);
-        //int tmp = IA_max_pts(plateau,Indice_tab_player);
+        int tmp;
+        if (Indice_tab_player == 0) {
+            tmp = appel_IA_max_pts_rec(plateau, Indice_tab_player, Indice_tab_player);
+        }
+        else {tmp = appel_IA_max_pts_rec_elag(plateau, Indice_tab_player, Indice_tab_player);}
+        
+        //tmp = appel_IA_max_pts_rec_var(plateau, Indice_tab_player, Indice_tab_player, nb_move);
 
-        // 
-        //printf("%d\n",tmp);
-        //
-
+        
         if (end_game == 2){
             int WW = Who_win(plateau);
             if (WW != -1) printf("Le joueur %c a gagné ! \n",tab_player[WW]);
@@ -48,28 +51,13 @@ int main(){
             played = 1;
             end_game += 1;
         }
-        else {
-            /*
-            printf("\n");
-            printf("C'est au tour des pions %c\n", tab_player[Indice_tab_player]);
-            printf("Rentrer ligne : ");
-            scanf("%d", &ligne); // Rentrer ligne : 
-            printf("Rentrer colone : ");
-            scanf("%d", &column); // Rentrer colone : 
-            printf("\n");
-            */
-            
-
+        else {  
             column = tmp % Lenght_tab;
             ligne = tmp / Lenght_tab;
 
             printf("ligne %d, colone %d\n",ligne,column);
 
             played = Is_possible(plateau, ligne, column, Indice_tab_player, Possible_vect);
-
-            //
-            printf("%d\n", played);
-            //
 
             if (played){
                 swap(plateau, ligne, column, Indice_tab_player, Possible_vect);
@@ -80,7 +68,11 @@ int main(){
             end_game = 0;
         }
         if (played) Indice_tab_player = (Indice_tab_player + 1)%2;
+        nb_move++;
 
+        time_t end = time( NULL);
+        unsigned long secondes = (unsigned long) difftime( end, begin );
+        printf( "Finished in %ld sec\n", secondes ); 
     }
     return 0;
 }
