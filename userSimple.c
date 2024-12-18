@@ -1,6 +1,7 @@
 #include <stdlib.h> 
 #include <stdio.h> 
 #include <string.h> 
+#include <time.h>
 #include "userNetwork.h" 
 #include "fonctions.h"
 #define BLACK 1 
@@ -9,6 +10,7 @@ int main(int argc,char *argv[])
 {
 	game *g;
 	int move; 
+	int nb_move = 0;
 
 	if ((g=allocateGameOthello()) == NULL ) { return(EXIT_FAILURE); }
 
@@ -18,7 +20,7 @@ int main(int argc,char *argv[])
 	}
 	else { fprintf(stderr,"usage : %s <userPasswd> <ip ad> <userId>\n",argv[0]); exit(-1); }
 
-	g->port=8080; //par exemple
+	g->port=8082; //par exemple
 
 	if (registerGameOthello(g,argv[1]) < 0 ) { exit(-1); }	// test de l'authentification auprès du serveur 
 
@@ -37,6 +39,7 @@ int main(int argc,char *argv[])
 	// debut de partie
 	
 	while (g->state == PLAYING && !feof(stdin)) {
+		time_t begin = time( NULL );
 	 	if (g->myColor != g->currentPlayer) { // attente du coup de l'adversaire 
 			if ((move=waitMoveOthello(g)) == 0 ) {
 				printf("Game status %d: \t",g->state); 
@@ -60,30 +63,24 @@ int main(int argc,char *argv[])
 			// recuperation du coup sur stdin 
 			printf("Enter your move:\n");
 
-			// Code pour jouer sans IA
-			/*
-			int ligne, colonne;
-			printf("Ligne : ");
-			scanf("%d",&ligne);
-			printf("Colonne : ");
-			scanf("%d",&colonne);
-			(g->move) = ligne*8 + colonne; 
-			*/
-			(g->move) = appel_IA_max_pts_rec(plateau, !(g->currentPlayer), !(g->currentPlayer));
+			(g->move) = appel_IA_max_pts_rec_elag(plateau, !(g->currentPlayer), !(g->currentPlayer), nb_move);
 
-			printf("playing move %d (x=%d,y=%d)\n",g->move,g->move%8,g->move/8);
+			printf("playing move %d (ligne=%d,colonne=%d)\n",g->move,g->move/8,g->move%8);
 			
 			int Possible_vect[8][2]= {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 			int played = Is_possible(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
-
-			//if (played == 0) (g->move = 64);
 
 			swap(plateau, g->move/8, g->move%8, !(g->currentPlayer), Possible_vect);
 
 			doMoveOthello(g);	// envoie du coup à l'adversaire 
 			Print_tab(plateau);
 	   	}
+		nb_move ++;
 		g->currentPlayer=!g->currentPlayer; 
+		time_t end = time( NULL);
+    	unsigned long secondes = (unsigned long) difftime( end, begin );
+		printf("Nb move : %d\n", nb_move);
+    	printf( "Finished in %ld sec\n", secondes ); 
 	} 
 	// fin de partie 
 	printf("I am player %s\n",(g->myColor==BLACK)?"Black":"White"); 
