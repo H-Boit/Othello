@@ -21,5 +21,9 @@ int IA(int plateau[Lenght_tab][Lenght_tab], int Indice_player);
 int IA_max_pts(int plateau[Lenght_tab][Lenght_tab], int Indice_player);
 int appel_IA_max_pts_rec(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor);
 int IA_max_pts_rec(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor, int profondeur);
+int IA_max_pts_rec_2(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor, int profondeur);
+int appel_IA_max_pts_rec_var(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor, int nb_move);
+int calcul_profondeur(int nb_move);
+int appel_IA_max_pts_rec_elag(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int MyColor, int nb_move);
+int calcul_points(int plateau[Lenght_tab][Lenght_tab], int MyColor);
 
-// Fonctions de test.c
