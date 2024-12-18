@@ -3,7 +3,12 @@
 #include "fonctions.h"
 
 /*-------------------------------------------------------------------------*/
-
+/*  PARAMETRES :
+        plateau : le plateau de jeux, 
+    
+    RETURN :
+        Initialise le plateau
+*/
 void Init_tab(int plateau[Lenght_tab][Lenght_tab]) { 
     for(int i = 0; i < Lenght_tab; i++){
         for(int j = 0; j < Lenght_tab; j ++){
@@ -17,9 +22,13 @@ void Init_tab(int plateau[Lenght_tab][Lenght_tab]) {
 }
 
 /*-------------------------------------------------------------------------*/
-
+/*  PARAMETRES :
+        plateau : le plateau de jeux, 
+    
+    RETURN :
+        Affiche le tableau en console
+*/
 void Print_tab(int plateau[Lenght_tab][Lenght_tab]) { 
-    // Affichage des numéros des colonnes
     printf("     0  1  2  3  4  5  6  7\n");
 
     for (int i = 0; i < 8; i++) {
@@ -40,13 +49,29 @@ void Print_tab(int plateau[Lenght_tab][Lenght_tab]) {
 }
 
 /*-------------------------------------------------------------------------*/
-
+/*  PARAMETRES :
+        plateau : le plateau de jeux, 
+        ligne : l'indice de ligne du coup,
+        column : l'indice de colonne du coup,
+    
+    RETURN :
+        1 si la case est vide
+        0 sinon
+*/
 bool Is_empty(int plateau[Lenght_tab][Lenght_tab], int ligne, int column){ 
     return (plateau[ligne][column] == (-1));
 }
 
 /*-------------------------------------------------------------------------*/
-
+/*  PARAMETRES :
+        plateau : le plateau de jeux, 
+        Indice_player : le numéro correspondant à la couleur du joueur,
+        Possible_vect : un tableau contenant les vecteurs possibles de déplacement,
+    
+    RETURN :
+        1 si le tableau est plein
+        0 sinon
+*/
 bool Tab_is_empty(int plateau[Lenght_tab][Lenght_tab], int Indice_player, int Possible_vect[8][2]){
     for (int init = 0; init < Lenght_tab ; init++){
         Possible_vect[init][0] = 0;
@@ -83,7 +108,6 @@ int Is_possible(int plateau[Lenght_tab][Lenght_tab], int i, int j, int Indice_pl
     int Vect[8][2] = {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};
 
     if (Is_empty(plateau,i,j)){
-    // iteration sur toutes les directions
         for (int i_vect = 0; i_vect < Lenght_tab; i_vect++){
             int pos_ligne = Vect[i_vect][0]+i;
             int pos_column = Vect[i_vect][1]+j;
