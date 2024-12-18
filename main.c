@@ -36,7 +36,7 @@ int main(){
         if (Indice_tab_player == 0) {
             tmp = appel_IA_max_pts_rec(plateau, Indice_tab_player, Indice_tab_player);
         }
-        else {tmp = appel_IA_max_pts_rec_elag(plateau, Indice_tab_player, Indice_tab_player);}
+        else {tmp = appel_IA_max_pts_rec_elag(plateau, Indice_tab_player, Indice_tab_player, nb_move);}
         
         //tmp = appel_IA_max_pts_rec_var(plateau, Indice_tab_player, Indice_tab_player, nb_move);
 
